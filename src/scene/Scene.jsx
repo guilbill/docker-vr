@@ -9,7 +9,13 @@ const Scene = () => {
             <ambientLight />
             <pointLight position={[10, 10, 10]} />
             <DefaultXRControllers />
-            <Box position={[-1, 0, -4]} castShadow>
+            <Box position={[-2, 0, -4]} castShadow>
+                <meshMatcapMaterial attach="material" matcap={texture} />
+            </Box>
+            <Box position={[0, 0, -4]} castShadow>
+                <meshMatcapMaterial attach="material" matcap={texture} />
+            </Box>
+            <Box position={[2, 0, -4]} castShadow>
                 <meshMatcapMaterial attach="material" matcap={texture} />
             </Box>
             <Hands />
