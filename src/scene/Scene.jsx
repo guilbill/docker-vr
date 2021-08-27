@@ -1,6 +1,11 @@
-import { Plane, Sky, useNormalTexture } from '@react-three/drei';
-import { DefaultXRControllers, Interactive, VRCanvas } from '@react-three/xr';
-import React, { useState } from 'react';
+import { Plane, Sky, Text, useNormalTexture } from '@react-three/drei';
+import {
+    DefaultXRControllers,
+    Interactive,
+    useXR,
+    VRCanvas,
+} from '@react-three/xr';
+import React, { useEffect, useState } from 'react';
 import ContainerBox from '../container/ContainerBox';
 
 const Scene = () => {
@@ -15,6 +20,7 @@ const Scene = () => {
         anisotropy: 1,
     });
     const [color, setColor] = useState('#313241');
+
     return (
         <VRCanvas>
             <Sky />
@@ -36,18 +42,21 @@ const Scene = () => {
                     position={[-2, 1.1, -4]}
                     texture={texture}
                     color={color}
+                    text="alpine"
                 />
             </Interactive>
             <ContainerBox
                 position={[0, 1.1, -4]}
                 texture={texture}
                 color="#313241"
+                text="Nodejs"
             />
 
             <ContainerBox
                 position={[2, 1.1, -4]}
                 texture={texture}
                 color="#313241"
+                text="Postgres"
             />
 
             <spotLight
