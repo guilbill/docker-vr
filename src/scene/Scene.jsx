@@ -1,6 +1,6 @@
 import { Plane, Sky, useNormalTexture } from '@react-three/drei';
-import { DefaultXRControllers, Hands, VRCanvas } from '@react-three/xr';
-import React from 'react';
+import { DefaultXRControllers, Interactive, VRCanvas } from '@react-three/xr';
+import React, { useState } from 'react';
 import ContainerBox from '../container/ContainerBox';
 
 const Scene = () => {
@@ -14,6 +14,7 @@ const Scene = () => {
         repeat: [100, 100],
         anisotropy: 1,
     });
+    const [color, setColor] = useState('#313241');
     return (
         <VRCanvas>
             <Sky />
@@ -26,11 +27,17 @@ const Scene = () => {
             <ambientLight />
             <pointLight position={[10, 10, 10]} />
             <DefaultXRControllers />
-            <ContainerBox
-                position={[-2, 1.1, -4]}
-                texture={texture}
-                color="#313241"
-            />
+            <Interactive
+                onSelect={() =>
+                    setColor(color === '#ff8484' ? '#313241' : '#ff8484')
+                }
+            >
+                <ContainerBox
+                    position={[-2, 1.1, -4]}
+                    texture={texture}
+                    color={color}
+                />
+            </Interactive>
             <ContainerBox
                 position={[0, 1.1, -4]}
                 texture={texture}
@@ -50,7 +57,6 @@ const Scene = () => {
                 intensity={1}
                 castShadow
             />
-            <Hands />
         </VRCanvas>
     );
 };
