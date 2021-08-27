@@ -1,12 +1,8 @@
-import { Plane, Sky, Text, useNormalTexture } from '@react-three/drei';
-import {
-    DefaultXRControllers,
-    Interactive,
-    useXR,
-    VRCanvas,
-} from '@react-three/xr';
+import { Plane, Sky, useNormalTexture } from '@react-three/drei';
+import { DefaultXRControllers, Interactive, VRCanvas } from '@react-three/xr';
 import React, { useEffect, useState } from 'react';
 import ContainerBox from '../container/ContainerBox';
+import { getContainers } from '../services/docker';
 
 const Scene = () => {
     const [texture] = useNormalTexture(52, {
@@ -21,6 +17,13 @@ const Scene = () => {
     });
     const [color, setColor] = useState('#313241');
 
+    const [containers, setContainers] = useState([]);
+
+    useEffect(() => {
+        const liveContainers = getContainers();
+        setContainers(liveContainers);
+    }, []);
+
     return (
         <VRCanvas>
             <Sky />
@@ -33,31 +36,20 @@ const Scene = () => {
             <ambientLight />
             <pointLight position={[10, 10, 10]} />
             <DefaultXRControllers />
-            <Interactive
-                onSelect={() =>
-                    setColor(color === '#ff8484' ? '#313241' : '#ff8484')
-                }
-            >
-                <ContainerBox
-                    position={[-2, 1.1, -4]}
-                    texture={texture}
-                    color={color}
-                    text="alpine"
-                />
-            </Interactive>
-            <ContainerBox
-                position={[0, 1.1, -4]}
-                texture={texture}
-                color="#313241"
-                text="Nodejs"
-            />
-
-            <ContainerBox
-                position={[2, 1.1, -4]}
-                texture={texture}
-                color="#313241"
-                text="Postgres"
-            />
+            {containers.map((container, index) => (
+                <Interactive
+                    onSelect={() =>
+                        setColor(color === '#ff8484' ? '#313241' : '#ff8484')
+                    }
+                >
+                    <ContainerBox
+                        position={[-2 + 2 * index, 1.1, -4]}
+                        texture={texture}
+                        color={color}
+                        text={container.image}
+                    />
+                </Interactive>
+            ))}
 
             <spotLight
                 position={[1, 8, 1]}
