@@ -1,11 +1,10 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
-import './index.css'
-import App from './App'
+import ReactDOM from 'react-dom';
+import React from 'react';
+import './styles.css';
+import Scene from './scene/Scene';
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
-)
+function App() {
+    return <Scene />;
+}
+
+ReactDOM.render(<App />, document.getElementById('root'));
