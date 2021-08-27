@@ -7,17 +7,17 @@ const Scene = () => {
     return (
         <VRCanvas>
             <Sky />
-            <Plane rotation={[-Math.PI / 2, 0, 0]} />
+            <Plane args={[100, 100]} rotation={[-Math.PI / 2, 0, 0]} />
             <ambientLight />
             <pointLight position={[10, 10, 10]} />
             <DefaultXRControllers />
-            <Box position={[-2, 0, -4]} castShadow>
+            <Box position={[-2, 1.1, -4]} castShadow>
                 <meshMatcapMaterial attach="material" matcap={texture} />
             </Box>
-            <Box position={[0, 0, -4]} castShadow>
+            <Box position={[0, 1.1, -4]} castShadow>
                 <meshMatcapMaterial attach="material" matcap={texture} />
             </Box>
-            <Box position={[2, 0, -4]} castShadow>
+            <Box position={[2, 1.1, -4]} castShadow>
                 <meshMatcapMaterial attach="material" matcap={texture} />
             </Box>
             <Hands />
