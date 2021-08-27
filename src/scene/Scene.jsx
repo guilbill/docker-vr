@@ -1,12 +1,7 @@
-import {
-    Box,
-    Plane,
-    Sky,
-    useMatcapTexture,
-    useNormalTexture,
-} from '@react-three/drei';
+import { Plane, Sky, useNormalTexture } from '@react-three/drei';
 import { DefaultXRControllers, Hands, VRCanvas } from '@react-three/xr';
 import React from 'react';
+import ContainerBox from '../container/ContainerBox';
 
 const Scene = () => {
     const [texture] = useNormalTexture(52, {
@@ -31,15 +26,23 @@ const Scene = () => {
             <ambientLight />
             <pointLight position={[10, 10, 10]} />
             <DefaultXRControllers />
-            <Box position={[-2, 1.1, -4]} castShadow>
-                <meshStandardMaterial normalMap={texture} color="#313241" />
-            </Box>
-            <Box position={[0, 1.1, -4]} castShadow>
-                <meshStandardMaterial normalMap={texture} color="#313241" />
-            </Box>
-            <Box position={[2, 1.1, -4]} castShadow>
-                <meshStandardMaterial normalMap={texture} color="#313241" />
-            </Box>
+            <ContainerBox
+                position={[-2, 1.1, -4]}
+                texture={texture}
+                color="#313241"
+            />
+            <ContainerBox
+                position={[0, 1.1, -4]}
+                texture={texture}
+                color="#313241"
+            />
+
+            <ContainerBox
+                position={[2, 1.1, -4]}
+                texture={texture}
+                color="#313241"
+            />
+
             <spotLight
                 position={[1, 8, 1]}
                 angle={0.3}
