@@ -1,8 +1,16 @@
-import { Plane, Sky, useNormalTexture } from '@react-three/drei';
+import {
+    Box,
+    OrbitControls,
+    Plane,
+    Sky,
+    useNormalTexture,
+} from '@react-three/drei';
+// import { Canvas } from '@react-three/fiber';
 import { DefaultXRControllers, Interactive, VRCanvas } from '@react-three/xr';
 import React, { useEffect, useState } from 'react';
-import ContainerBox from '../container/ContainerBox';
-import { getContainers } from '../services/docker';
+// import { Physics, useBox, usePlane, useSphere } from '@react-three/cannon';
+import DockerContainer from '../container/DockerContainer';
+import getContainers from '../services/docker';
 
 const Scene = () => {
     const [texture] = useNormalTexture(52, {
@@ -25,6 +33,29 @@ const Scene = () => {
     }, []);
 
     return (
+        // <Canvas>
+        //     <ambientLight />
+        //     <spotLight />
+
+        //     <OrbitControls />
+
+        //     <Physics>
+        //         {containers.map((container, index) => (
+        //             // <Interactive
+        //             //     onSelect={() =>
+        //             //         setColor(color === '#ff8484' ? '#313241' : '#ff8484')
+        //             //     }
+        //             // >
+        //             <DockerContainer
+        //                 position={[-2 + 2 * index, 0, -4]}
+        //                 texture={texture}
+        //                 color={color}
+        //                 text={container.image}
+        //             />
+        //             // </Interactive>
+        //         ))}
+        //     </Physics>
+        // </Canvas>
         <VRCanvas>
             <Sky />
             <Plane args={[100, 100]} rotation={[-Math.PI / 2, 0, 0]}>
@@ -42,7 +73,7 @@ const Scene = () => {
                         setColor(color === '#ff8484' ? '#313241' : '#ff8484')
                     }
                 >
-                    <ContainerBox
+                    <DockerContainer
                         position={[-2 + 2 * index, 1.1, -4]}
                         texture={texture}
                         color={color}

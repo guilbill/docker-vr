@@ -16,4 +16,4 @@ const getContainers = () => [
     // },
 ];
 
-export default { getContainers };
+export { getContainers as default };

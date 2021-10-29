@@ -281,10 +281,10 @@
   resolved "https://registry.yarnpkg.com/@humanwhocodes/object-schema/-/object-schema-1.2.0.tgz#87de7af9c231826fdd68ac7258f77c429e0e5fcf"
   integrity sha512-wdppn25U8z/2yiaT6YGquE6X8sSv7hNMWSXYSSU1jGv/yd6XqjXgTDJ8KP4NgjTXfJ3GbRjeeb8RTV7a/VpM+w==
 
-"@react-three/cannon@^3.0.1":
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/@react-three/cannon/-/cannon-3.0.1.tgz#ceed1c7f387282c0b74cc0a5b02b7abde21ad342"
-  integrity sha512-a/l8ov4T4XGE6oSyVad50KWS58lzcpt+Xd4rKakRyOTa15sDoFb/dW0Wp0KaCMMO070dM9hoTI8AaghGzqd1WA==
+"@react-three/cannon@^4.0.1":
+  version "4.0.1"
+  resolved "https://registry.yarnpkg.com/@react-three/cannon/-/cannon-4.0.1.tgz#5243f53fce64a1caa8f715df2ecc4695d3b54f00"
+  integrity sha512-3JL37ftIBvHpOz7ev1yYkssTFImnbc00YhUulaICqdTGqK5zSw4AbsITKNtC7OeT5UmrL9XlLQpL51nsdjKX+w==
   dependencies:
     cannon-es "^0.18.0"
     cannon-es-debugger "^0.1.4"
