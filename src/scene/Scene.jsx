@@ -28,8 +28,9 @@ const Scene = () => {
     const [containers, setContainers] = useState([]);
 
     useEffect(() => {
-        const liveContainers = getContainers();
-        setContainers(liveContainers);
+        getContainers().then((liveContainers) => {
+            setContainers(liveContainers);
+        });
     }, []);
 
     return (
@@ -77,7 +78,7 @@ const Scene = () => {
                         position={[-2 + 2 * index, 1.1, -4]}
                         texture={texture}
                         color={color}
-                        text={container.image}
+                        text={container.Names[0]}
                     />
                 </Interactive>
             ))}
