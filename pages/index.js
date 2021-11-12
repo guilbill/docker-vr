@@ -7,15 +7,22 @@ const Scene = dynamic(() => import('../components/scene/Scene.jsx'), {
 });
 
 export default function Home(props) {
-    const [containers, setContainers] = useState([]);
+    const [containers, setContainers] = useState(props.containers || []);
 
-    useEffect(async () => {
-        const res = await fetch(`/api/containers`);
+    const refreshContainers = async () => {
+        const res = await fetch('/api/containers');
         const { containers } = await res.json();
         setContainers(containers);
+    };
+
+    useEffect(() => {
+        const interval = setInterval(() => refreshContainers(), 5000);
+        return () => clearInterval(interval);
     }, []);
 
-    return <Scene containers={containers} />;
+    return (
+        <Scene containers={containers} refreshContainers={refreshContainers} />
+    );
 }
 
 export async function getServerSideProps() {

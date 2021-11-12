@@ -3,7 +3,7 @@
 import getContainers from '../../services/docker';
 
 export default function handler(req, res) {
-    getContainers().then((containers) =>
-        res.status(200).json({ containers: containers })
-    );
+    getContainers().then((containers) => {
+        res.status(200).json({ containers });
+    });
 }
