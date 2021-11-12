@@ -3,27 +3,21 @@ import React, { useEffect, useState } from 'react';
 import DockerContainer from '../container/DockerContainer';
 import getContainers from '../../services/docker';
 import { Canvas } from '@react-three/fiber';
+import { DefaultXRControllers, VRCanvas } from '@react-three/xr';
 import { Physics } from '@react-three/cannon';
 
 const Containers = (props) => {
     const { containers } = props;
-    const [color, setColor] = useState('#313241');
     return (
         <Physics>
             {containers.map((container, index) => (
-                // <Interactive
-                //     onSelect={() =>
-                //         setColor(color === '#ff8484' ? '#313241' : '#ff8484')
-                //     }
-                // >
                 <DockerContainer
                     key={container.Names[0]}
                     position={[-2 + 2 * index, 0, -4]}
                     // texture={texture}
-                    color={color}
                     text={container.Names[0]}
                 />
-                // </Interactive>
+                //{' '}
             ))}
         </Physics>
     );
@@ -47,12 +41,12 @@ const Scene = () => {
     }, []);
 
     return (
-        <Canvas>
+        <VRCanvas>
             <ambientLight />
             <spotLight />
             <Containers containers={containers} />
-            <OrbitControls />
-        </Canvas>
+            <DefaultXRControllers />
+        </VRCanvas>
         // <VRCanvas>
         //     <Sky />
         //     <Plane args={[100, 100]} rotation={[-Math.PI / 2, 0, 0]}>
@@ -63,7 +57,7 @@ const Scene = () => {
         //     </Plane>
         //     <ambientLight />
         //     <pointLight position={[10, 10, 10]} />
-        //     <DefaultXRControllers />
+        //
         //     {containers.map((container, index) => (
         //         <Interactive
         //             onSelect={() =>
