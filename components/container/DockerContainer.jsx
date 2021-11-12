@@ -4,7 +4,7 @@ import { Box, Text } from '@react-three/drei';
 import { Interactive } from '@react-three/xr';
 
 const DockerContainer = (props) => {
-    const { position, texture, text } = props;
+    const { position, text } = props;
 
     const [color, setColor] = useState('#313241');
     return (
@@ -31,8 +31,6 @@ const DockerContainer = (props) => {
 
 DockerContainer.propTypes = {
     position: PropTypes.arrayOf(PropTypes.number).isRequired,
-    texture: PropTypes.object.isRequired,
-    color: PropTypes.string.isRequired,
     text: PropTypes.string.isRequired,
 };
 
