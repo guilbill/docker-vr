@@ -1,8 +1,5 @@
-import { OrbitControls } from '@react-three/drei';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import DockerContainer from '../container/DockerContainer';
-import getContainers from '../../services/docker';
-import { Canvas } from '@react-three/fiber';
 import { DefaultXRControllers, VRCanvas } from '@react-three/xr';
 import { Physics } from '@react-three/cannon';
 
@@ -10,35 +7,21 @@ const Containers = (props) => {
     const { containers } = props;
     return (
         <Physics>
-            {containers.map((container, index) => (
-                <DockerContainer
-                    key={container.Names[0]}
-                    position={[-2 + 2 * index, 0, -4]}
-                    // texture={texture}
-                    text={container.Names[0]}
-                />
-                //{' '}
-            ))}
+            {containers &&
+                containers.map((container, index) => (
+                    <DockerContainer
+                        key={container.Names[0]}
+                        position={[-2 + 2 * index, 0, -4]}
+                        // texture={texture}
+                        text={container.Names[0]}
+                    />
+                    //{' '}
+                ))}
         </Physics>
     );
 };
-const Scene = () => {
-    // const [texture] = useNormalTexture(52, {
-    //     offset: [0, 0],
-    //     repeat: [0.5, 0.5],
-    //     anisotropy: 1,
-    // });
-    // const [groundTexture] = useNormalTexture(55, {
-    //     offset: [0, 0],
-    //     repeat: [100, 100],
-    //     anisotropy: 1,
-    // });
-
-    const [containers, setContainers] = useState([]);
-
-    useEffect(() => {
-        setContainers(getContainers());
-    }, []);
+const Scene = (props) => {
+    const { containers } = props;
 
     return (
         <VRCanvas>
