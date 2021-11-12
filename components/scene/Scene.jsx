@@ -2,6 +2,7 @@ import React from 'react';
 import DockerContainer from '../container/DockerContainer';
 import { DefaultXRControllers, VRCanvas } from '@react-three/xr';
 import { Physics } from '@react-three/cannon';
+import { Sky } from '@react-three/drei';
 
 const Containers = (props) => {
     const { containers } = props;
@@ -25,6 +26,7 @@ const Scene = (props) => {
 
     return (
         <VRCanvas>
+            <Sky />
             <ambientLight />
             <spotLight />
             <Containers containers={containers} />
