@@ -2,8 +2,7 @@
 
 import getContainers from '../../services/docker';
 
-export default function handler(req, res) {
-    getContainers().then((containers) => {
-        res.status(200).json({ containers });
-    });
-}
+export default async (req, res) => {
+    const containers = await getContainers();
+    return res.status(200).json({ containers });
+};
