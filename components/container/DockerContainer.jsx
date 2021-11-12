@@ -3,22 +3,19 @@ import PropTypes from 'prop-types';
 import { Box, Text } from '@react-three/drei';
 import { Interactive } from '@react-three/xr';
 
+const RUNNING = '#D8DC6A';
+const STOPPED = '#EB8258';
 const DockerContainer = (props) => {
-    const { position, text } = props;
+    const { position, text, running } = props;
 
-    const [color, setColor] = useState('#313241');
     return (
-        <Interactive
-            onSelect={() =>
-                setColor(color === '#ff8484' ? '#313241' : '#ff8484')
-            }
-        >
-            <Box position={position} castShadow>
-                <meshStandardMaterial color={color} />
+        <Interactive>
+            <Box position={position} castShadow receiveShadow>
+                <meshStandardMaterial color={running ? RUNNING : STOPPED} />
                 <Text
                     position={[0, 0, 1]}
-                    fontSize={0.1}
-                    color={color}
+                    fontSize={0.2}
+                    color="#0B1B2D"
                     anchorX="center"
                     anchorY="middle"
                 >

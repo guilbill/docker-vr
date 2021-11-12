@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import DockerContainer from '../container/DockerContainer';
 import { DefaultXRControllers, VRCanvas } from '@react-three/xr';
 import { Physics } from '@react-three/cannon';
-import { Plane, Sky } from '@react-three/drei';
+import { Environment, Plane, Reflector, Sky } from '@react-three/drei';
 
 const Containers = (props) => {
     const { containers } = props;
@@ -12,18 +12,18 @@ const Containers = (props) => {
                 containers.map((container, index) => (
                     <DockerContainer
                         key={container.Names[0]}
-                        position={[-2 + 2 * index, 0, -4]}
-                        // texture={texture}
+                        position={[
+                            -2 + 2 * (index % 3),
+                            0 + Math.floor(index / 3) * 2,
+                            -4,
+                        ]}
+                        running={container.State === 'running'}
                         text={container.Names[0]}
                     />
                     //{' '}
                 ))}
         </Physics>
     );
-};
-
-const Ground = () => {
-    return <Plane args={[100, 100]} rotation={[-Math.PI / 2, 0, 0]} />;
 };
 
 const Scene = (props) => {
@@ -36,10 +36,16 @@ const Scene = (props) => {
     // });
     return (
         <VRCanvas>
-            <Sky />
-            <Ground />
-            <ambientLight />
-            <spotLight />
+            {/* <Environment files="dikhololo_sunset_4k.hdr" /> */}
+            <Plane castShadow receiveShadow />
+            <ambientLight intensity={0.5} />
+            <spotLight
+                intensity={0.6}
+                position={[30, 30, 50]}
+                angle={0.2}
+                penumbra={1}
+                castShadow
+            />
             <Containers containers={containers} />
             <DefaultXRControllers />
         </VRCanvas>
