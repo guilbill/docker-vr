@@ -1,13 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Texture } from 'three';
 import { Box, Text } from '@react-three/drei';
 
-const ContainerBox = (props) => {
+const DockerContainer = (props) => {
     const { position, texture, color, text } = props;
     return (
         <Box position={position} castShadow>
-            <meshStandardMaterial normalMap={texture} color={color} />
+            <meshStandardMaterial color={color} />
             <Text
                 position={[0, 0, 1]}
                 fontSize={0.1}
@@ -21,11 +20,11 @@ const ContainerBox = (props) => {
     );
 };
 
-ContainerBox.propTypes = {
+DockerContainer.propTypes = {
     position: PropTypes.arrayOf(PropTypes.number).isRequired,
-    texture: PropTypes.objectOf(Texture).isRequired,
+    texture: PropTypes.object.isRequired,
     color: PropTypes.string.isRequired,
     text: PropTypes.string.isRequired,
 };
 
-export default ContainerBox;
+export default DockerContainer;

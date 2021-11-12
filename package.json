@@ -1,35 +1,26 @@
 {
-    "name": "docker-vr",
-    "version": "0.0.0",
+    "name": "docker-vr-next",
+    "private": true,
     "scripts": {
-        "dev": "vite",
-        "build": "vite build",
-        "serve": "vite preview"
+        "dev": "node server.js",
+        "build": "next build",
+        "start": "next start",
+        "lint": "next lint"
     },
     "dependencies": {
         "@react-three/cannon": "^4.0.1",
-        "@react-three/drei": "^7.5.0",
-        "@react-three/fiber": "^7.0.6",
-        "@react-three/xr": "^3.1.2",
+        "@react-three/drei": "^7.20.5",
+        "@react-three/fiber": "^7.0.19",
+        "@react-three/xr": "^3.2.0",
         "dockerode": "^3.3.1",
-        "prop-types": "^15.7.2",
-        "react": "^17.0.2",
-        "react-dom": "^17.0.2",
-        "three": "^0.131.3"
+        "next": "12.0.3",
+        "next-transpile-modules": "^9.0.0",
+        "react": "17.0.2",
+        "react-dom": "17.0.2",
+        "three": "^0.134.0"
     },
     "devDependencies": {
-        "@babel/core": "^7.15.8",
-        "@babel/preset-env": "^7.15.8",
-        "@vitejs/plugin-react-refresh": "^1.3.1",
-        "babel-jest": "^27.3.1",
-        "eslint": "^7.32.0",
-        "eslint-config-airbnb": "^18.2.1",
-        "eslint-config-prettier": "^8.3.0",
-        "eslint-plugin-import": "^2.24.1",
-        "eslint-plugin-jsx-a11y": "^6.4.1",
-        "eslint-plugin-react": "^7.24.0",
-        "eslint-plugin-react-hooks": "^4.2.0",
-        "jest": "^27.3.1",
-        "vite": "^2.4.4"
+        "eslint": "7",
+        "eslint-config-next": "12.0.3"
     }
 }
