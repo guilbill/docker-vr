@@ -1,19 +1,33 @@
-import {
-    Box,
-    OrbitControls,
-    Plane,
-    Sky,
-    useNormalTexture,
-} from '@react-three/drei';
-// import { Canvas } from '@react-three/fiber';
-import { DefaultXRControllers, Interactive, VRCanvas } from '@react-three/xr';
+import { OrbitControls } from '@react-three/drei';
 import React, { useEffect, useState } from 'react';
-// import { Physics, useBox, usePlane, useSphere } from '@react-three/cannon';
 import DockerContainer from '../container/DockerContainer';
 import getContainers from '../../services/docker';
 import { Canvas } from '@react-three/fiber';
 import { Physics } from '@react-three/cannon';
 
+const Containers = (props) => {
+    const { containers } = props;
+    const [color, setColor] = useState('#313241');
+    return (
+        <Physics>
+            {containers.map((container, index) => (
+                // <Interactive
+                //     onSelect={() =>
+                //         setColor(color === '#ff8484' ? '#313241' : '#ff8484')
+                //     }
+                // >
+                <DockerContainer
+                    key={container.Names[0]}
+                    position={[-2 + 2 * index, 0, -4]}
+                    // texture={texture}
+                    color={color}
+                    text={container.Names[0]}
+                />
+                // </Interactive>
+            ))}
+        </Physics>
+    );
+};
 const Scene = () => {
     // const [texture] = useNormalTexture(52, {
     //     offset: [0, 0],
@@ -25,7 +39,6 @@ const Scene = () => {
     //     repeat: [100, 100],
     //     anisotropy: 1,
     // });
-    const [color, setColor] = useState('#313241');
 
     const [containers, setContainers] = useState([]);
 
@@ -37,26 +50,8 @@ const Scene = () => {
         <Canvas>
             <ambientLight />
             <spotLight />
-
+            <Containers containers={containers} />
             <OrbitControls />
-
-            <Physics>
-                {containers.map((container, index) => (
-                    // <Interactive
-                    //     onSelect={() =>
-                    //         setColor(color === '#ff8484' ? '#313241' : '#ff8484')
-                    //     }
-                    // >
-                    <DockerContainer
-                        key={container.Names[0]}
-                        position={[-2 + 2 * index, 0, -4]}
-                        // texture={texture}
-                        color={color}
-                        text={container.Names[0]}
-                    />
-                    // </Interactive>
-                ))}
-            </Physics>
         </Canvas>
         // <VRCanvas>
         //     <Sky />
