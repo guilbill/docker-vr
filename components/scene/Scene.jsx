@@ -2,7 +2,7 @@ import React from 'react';
 import DockerContainer from '../container/DockerContainer';
 import { DefaultXRControllers, VRCanvas } from '@react-three/xr';
 import { Physics } from '@react-three/cannon';
-import { Sky } from '@react-three/drei';
+import { Plane, Sky } from '@react-three/drei';
 
 const Containers = (props) => {
     const { containers } = props;
@@ -21,12 +21,23 @@ const Containers = (props) => {
         </Physics>
     );
 };
+
+const Ground = () => {
+    return <Plane args={[100, 100]} rotation={[-Math.PI / 2, 0, 0]} />;
+};
+
 const Scene = (props) => {
     const { containers } = props;
 
+    // const [texture] = useNormalTexture(52, {
+    //     offset: [0, 0],
+    //     repeat: [0.5, 0.5],
+    //     anisotropy: 1,
+    // });
     return (
         <VRCanvas>
             <Sky />
+            <Ground />
             <ambientLight />
             <spotLight />
             <Containers containers={containers} />
