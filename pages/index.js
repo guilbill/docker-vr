@@ -1,6 +1,6 @@
 import dynamic from 'next/dynamic';
 import { useEffect, useState } from 'react';
-import getContainers from '../services/docker';
+import {getContainers} from '../services/docker';
 
 const Scene = dynamic(() => import('../components/scene/Scene.jsx'), {
     ssr: false,
@@ -16,7 +16,7 @@ export default function Home(props) {
     };
 
     useEffect(() => {
-        const interval = setInterval(() => refreshContainers(), 5000);
+        const interval = setInterval(() => refreshContainers(), 500);
         return () => clearInterval(interval);
     }, []);
 
