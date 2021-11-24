@@ -55,13 +55,13 @@ const Scene = (props) => {
                 <meshStandardMaterial color="white" />
             </Plane>
             <Plane receiveShadow position={[0, 0, -100]} scale="200">
-                <meshStandardMaterial color="blue" />
+                <meshStandardMaterial color="white" />
             </Plane>
             <Plane receiveShadow position={[-50, 0, -10]} rotation={[0, Math.PI / 2, 0]} scale="200">
-                <meshStandardMaterial color="green" />
+                <meshStandardMaterial color="white" />
             </Plane>
             <Plane receiveShadow position={[50, 0, -10]} rotation={[0, -Math.PI / 2, 0]} scale="200">
-                <meshStandardMaterial color="red" />
+                <meshStandardMaterial color="white" />
             </Plane>
 
             <ambientLight intensity={1} />
