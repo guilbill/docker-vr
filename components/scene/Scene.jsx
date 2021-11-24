@@ -1,8 +1,8 @@
 import React, { Suspense } from 'react';
 import DockerContainer from '../container/DockerContainer';
-import { DefaultXRControllers, VRCanvas } from '@react-three/xr';
+import { DefaultXRControllers, Interactive, VRCanvas } from '@react-three/xr';
 import { Physics } from '@react-three/cannon';
-import { Environment, Plane, Reflector, Sky } from '@react-three/drei';
+import { Box, Environment, Plane, Reflector, Sky, Text } from '@react-three/drei';
 
 const Containers = (props) => {
     const { containers } = props;
@@ -73,6 +73,20 @@ const Scene = (props) => {
                 castShadow
             />
             <Containers containers={containers} />
+            <Interactive onSelect={() => fetch(`/api/containers`, { method: 'POST' })}>
+                <Box position={[4, 1, -2]} castShadow receiveShadow>
+                    <meshStandardMaterial color="blue" />
+                    <Text
+                        position={[0, 0, 1]}
+                        fontSize={0.2}
+                        color="#0B1B2D"
+                        anchorX="center"
+                        anchorY="middle"
+                    >
+                        New
+                    </Text>
+                </Box>
+            </Interactive>
             <DefaultXRControllers />
         </VRCanvas>
         // <VRCanvas>

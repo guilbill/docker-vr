@@ -6,7 +6,7 @@ import { Interactive } from '@react-three/xr';
 const RUNNING = '#D8DC6A';
 const STOPPED = '#EB8258';
 const DockerContainer = (props) => {
-    const { position, text, running, id, status } = props;
+    const { position, text, running, id } = props;
 
     return (
         <Interactive onSelect={()=> fetch(`/api/containers/${id}`, {method:'POST'})}>
@@ -30,8 +30,7 @@ const DockerContainer = (props) => {
 DockerContainer.propTypes = {
     position: PropTypes.arrayOf(PropTypes.number).isRequired,
     text: PropTypes.string.isRequired,
-    id: PropTypes.string.isRequired,
-    statut: PropTypes.string.isRequired
+    id: PropTypes.string.isRequired
 };
 
 export default DockerContainer;
