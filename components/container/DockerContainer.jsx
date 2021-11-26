@@ -1,18 +1,17 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import { Box, Cylinder, Text } from '@react-three/drei';
-import { Interactive } from '@react-three/xr';
+import { Cylinder, Text } from '@react-three/drei';
 
 const RUNNING = '#D8DC6A';
 const STOPPED = '#EB8258';
 const DockerContainer = (props) => {
-    const { position, text, running, id } = props;
+    const { position, text, running } = props;
 
     return (
-        <Interactive onSelect={()=> fetch(`/api/containers/${id}`, {method:'POST'})}>
+        // <Interactive onSelect={()=> fetch(`/api/containers/${id}`, {method:'POST'})}>
             <Cylinder position={position} castShadow receiveShadow>
                 <meshStandardMaterial color={running ? RUNNING : STOPPED} />
-                
+
                 <Text
                     position={[0, 0, 1]}
                     fontSize={0.2}
@@ -23,7 +22,7 @@ const DockerContainer = (props) => {
                    {text}
                 </Text>
             </Cylinder>
-        </Interactive>
+        // </Interactive>
     );
 };
 

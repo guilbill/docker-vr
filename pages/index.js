@@ -1,6 +1,5 @@
 import dynamic from 'next/dynamic';
 import { useEffect, useState } from 'react';
-import {getContainers} from '../services/docker';
 
 const Scene = dynamic(() => import('../components/scene/Scene.jsx'), {
     ssr: false,
@@ -21,11 +20,10 @@ export default function Home(props) {
     }, []);
 
     return (
-        <Scene containers={containers} refreshContainers={refreshContainers} />
+        <Scene
+            {...props}
+            containers={containers}
+            refreshContainers={refreshContainers}
+        />
     );
-}
-
-export async function getServerSideProps() {
-    const containers = await getContainers();
-    return { props: { containers } };
 }

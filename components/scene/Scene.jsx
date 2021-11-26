@@ -1,13 +1,14 @@
 import React, { Suspense } from 'react';
-import DockerContainer from '../container/DockerContainer';
+import PropTypes from 'prop-types';
 import { DefaultXRControllers, Interactive, VRCanvas } from '@react-three/xr';
-import { Physics } from '@react-three/cannon';
-import { Box, Environment, Plane, Reflector, Sky, Text } from '@react-three/drei';
+import { Box, Plane, Reflector, Text } from '@react-three/drei';
+import DockerContainer from '../container/DockerContainer';
+import ConditionalCanvas from '../tools/ConditionalCanvas';
 
 const Containers = (props) => {
     const { containers } = props;
     return (
-        <Physics>
+        <Suspense fallback={null} r3f>
             {containers &&
                 containers.map((container, index) => (
                     <DockerContainer
@@ -22,10 +23,20 @@ const Containers = (props) => {
                         text={container.Names[0]}
                         id={container.Id}
                     />
-                    //{' '}
+                    // {' '}
                 ))}
-        </Physics>
+        </Suspense>
     );
+};
+
+Containers.propTypes = {
+    containers: PropTypes.arrayOf(
+        PropTypes.shape({
+            Names: PropTypes.arrayOf(PropTypes.string),
+            State: PropTypes.string,
+            Id: PropTypes.string,
+        })
+    ).isRequired,
 };
 
 const Scene = (props) => {
@@ -37,9 +48,10 @@ const Scene = (props) => {
     //     anisotropy: 1,
     // });
     return (
-        <VRCanvas>
+        <ConditionalCanvas {...props}>
             {/* <Environment files="dikhololo_sunset_4k.hdr" /> */}
-            <Reflector scale="200"
+            <Reflector
+                scale="200"
                 position={[0, -2, 0]}
                 rotation={[-Math.PI / 2, 0, 0]}
                 mixStrength={0.5}
@@ -57,10 +69,20 @@ const Scene = (props) => {
             <Plane receiveShadow position={[0, 0, -100]} scale="200">
                 <meshStandardMaterial color="white" />
             </Plane>
-            <Plane receiveShadow position={[-50, 0, -10]} rotation={[0, Math.PI / 2, 0]} scale="200">
+            <Plane
+                receiveShadow
+                position={[-50, 0, -10]}
+                rotation={[0, Math.PI / 2, 0]}
+                scale="200"
+            >
                 <meshStandardMaterial color="white" />
             </Plane>
-            <Plane receiveShadow position={[50, 0, -10]} rotation={[0, -Math.PI / 2, 0]} scale="200">
+            <Plane
+                receiveShadow
+                position={[50, 0, -10]}
+                rotation={[0, -Math.PI / 2, 0]}
+                scale="200"
+            >
                 <meshStandardMaterial color="white" />
             </Plane>
 
@@ -73,57 +95,32 @@ const Scene = (props) => {
                 castShadow
             />
             <Containers containers={containers} />
-            <Interactive onSelect={() => fetch(`/api/containers`, { method: 'POST' })}>
-                <Box position={[4, 1, -2]} castShadow receiveShadow>
-                    <meshStandardMaterial color="blue" />
-                    <Text
-                        position={[0, 0, 1]}
-                        fontSize={0.2}
-                        color="#0B1B2D"
-                        anchorX="center"
-                        anchorY="middle"
-                    >
-                        New
-                    </Text>
-                </Box>
-            </Interactive>
-            <DefaultXRControllers />
-        </VRCanvas>
-        // <VRCanvas>
-        //     <Sky />
-        //     <Plane args={[100, 100]} rotation={[-Math.PI / 2, 0, 0]}>
-        //         <meshStandardMaterial
-        //             normalMap={groundTexture}
-        //             color="#848282"
-        //         />
-        //     </Plane>
-        //     <ambientLight />
-        //     <pointLight position={[10, 10, 10]} />
-        //
-        //     {containers.map((container, index) => (
-        //         <Interactive
-        //             onSelect={() =>
-        //                 setColor(color === '#ff8484' ? '#313241' : '#ff8484')
-        //             }
-        //         >
-        //             <DockerContainer
-        //                 position={[-2 + 2 * index, 1.1, -4]}
-        //                 texture={texture}
-        //                 color={color}
-        //                 text={container.Names[0]}
-        //             />
-        //         </Interactive>
-        //     ))}
-
-        //     <spotLight
-        //         position={[1, 8, 1]}
-        //         angle={0.3}
-        //         penumbra={1}
-        //         intensity={1}
-        //         castShadow
-        //     />
-        // </VRCanvas>
+            {/* <Interactive onSelect={() => fetch(`/api/containers`, { method: 'POST' })}> */}
+            <Box position={[4, 1, -2]} castShadow receiveShadow>
+                <meshStandardMaterial color="blue" />
+                <Text
+                    position={[0, 0, 1]}
+                    fontSize={0.2}
+                    color="#0B1B2D"
+                    anchorX="center"
+                    anchorY="middle"
+                >
+                    New
+                </Text>
+            </Box>
+            {/* </Interactive> */}
+        </ConditionalCanvas>
     );
+};
+
+Scene.propTypes = {
+    containers: PropTypes.arrayOf(
+        PropTypes.shape({
+            Names: PropTypes.arrayOf(PropTypes.string),
+            State: PropTypes.string,
+            Id: PropTypes.string,
+        })
+    ).isRequired,
 };
 
 export default Scene;
