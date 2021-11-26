@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Cylinder, Text } from '@react-three/drei';
+import { Cylinder, Text, Billboard } from '@react-three/drei';
 
 const RUNNING = '#D8DC6A';
 const STOPPED = '#EB8258';
@@ -15,16 +15,18 @@ const DockerContainer = (props) => {
                 metalness={1}
                 roughness={0.3}
             />
-
-            <Text
-                position={[0, 0, 1]}
-                fontSize={0.2}
-                color="#0B1B2D"
-                anchorX="center"
-                anchorY="middle"
-            >
-                {text}
-            </Text>
+            <Billboard position={[0, 0, 1]} follow={false}>
+                <Text
+                    fontSize={0.2}
+                    color="#0fff"
+                    outlineWidth={'5%'}
+                    outlineColor="#000000"
+                    anchorX="center"
+                    anchorY="middle"
+                >
+                    {text}
+                </Text>
+            </Billboard>
         </Cylinder>
         // </Interactive>
     );

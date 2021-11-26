@@ -1,17 +1,13 @@
-import React, { Suspense } from 'react';
+import React, { Suspense, useState } from 'react';
+import { animated, useSpring } from '@react-spring/three';
+import { useDrag } from '@use-gesture/react';
 import PropTypes from 'prop-types';
 import { DefaultXRControllers, Interactive, VRCanvas } from '@react-three/xr';
-import {
-    Box,
-    Environment,
-    FirstPersonControls,
-    OrbitControls,
-    Plane,
-    Reflector,
-    Text,
-} from '@react-three/drei';
+import { Box, OrbitControls, Stage, Text } from '@react-three/drei';
 import DockerContainer from '../container/DockerContainer';
 import ConditionalCanvas from '../tools/ConditionalCanvas';
+import { useThree } from '@react-three/fiber';
+import { easeCubicOut } from 'd3-ease';
 
 const Containers = (props) => {
     const { containers } = props;
@@ -58,31 +54,7 @@ const Scene = (props) => {
     return (
         <Suspense fallback={null}>
             <ConditionalCanvas {...props}>
-                <Environment preset="warehouse" background={true} />
-                <OrbitControls />
-
-                <ambientLight intensity={1} />
-                <spotLight
-                    intensity={0.6}
-                    position={[30, 30, 50]}
-                    angle={0.3}
-                    penumbra={1}
-                    castShadow
-                />
-                <Containers containers={containers} />
-                {/* <Interactive onSelect={() => fetch(`/api/containers`, { method: 'POST' })}> */}
-                <Box position={[4, 1, -2]} castShadow receiveShadow>
-                    <meshStandardMaterial metalness={1} roughness={0.2} />
-                    <Text
-                        position={[0, 0, 0.2]}
-                        fontSize={0.2}
-                        color="#0B1B2D"
-                        anchorX="center"
-                        anchorY="middle"
-                    >
-                        New
-                    </Text>
-                </Box>
+                <ContainersScene containers={containers} />
                 {/* </Interactive> */}
             </ConditionalCanvas>
         </Suspense>
@@ -100,3 +72,39 @@ Scene.propTypes = {
 };
 
 export default Scene;
+const ContainersScene = ({ containers }) => {
+    const position = [0, 1, 0];
+    const AnimatedBox = animated(Box);
+    const spring = useSpring({
+        from: { position: [0, 100, 0] },
+        to: { position },
+        config: {
+            easing: easeCubicOut,
+        },
+        delay: 400,
+    });
+    return (
+        <Stage environment="warehouse" ambience={100}>
+            <OrbitControls />
+            <Containers containers={containers} />
+            {/* <Interactive onSelect={() => fetch(`/api/containers`, { method: 'POST' })}> */}
+            <AnimatedBox
+                position={position}
+                castShadow
+                receiveShadow
+                {...spring}
+            >
+                <meshStandardMaterial metalness={1} roughness={0.2} />
+                <Text
+                    position={[0, 0, 0.2]}
+                    fontSize={0.2}
+                    color="#0B1B2D"
+                    anchorX="center"
+                    anchorY="middle"
+                >
+                    New
+                </Text>
+            </AnimatedBox>
+        </Stage>
+    );
+};

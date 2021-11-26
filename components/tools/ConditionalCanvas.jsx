@@ -13,6 +13,7 @@ const ConditionalCanvas = ({ children }) => {
     const Component = vrReady ? VRCanvas : Canvas;
     return (
         <Component
+            shadows
             style={{
                 position: 'absolute',
                 top: 0,
